@@ -1,0 +1,58 @@
+
+<body>
+<div class="interior">
+
+	<h1>Pending Tests</h1>
+	<h3>Author: Brandon Walz</h3>
+
+	<p>
+		You have already learned most of the features of RSpec; however, there is one more that can be useful. This section of the tutorial will cover pending test cases.
+	</p>
+	<p>
+		For organizational purposes, you can label certain specifications as Pending. These will appear separately in your RSpec output, reminding you that there's still work to be done. This is particularly useful if you think of a feature that you would like to implement later, and do not want to forget to do so.
+	</p>
+	<p>
+		If you leave out any logic for a behavior, that spec will be Pending:
+	</p>
+	<code>
+		describe Tweet do <br>
+  			&nbsp it 'will be funny' <br>
+		end
+	</code>
+
+	<p>
+	You can also use the pending keyword for tests you have implemented but know will fail:
+	</p>
+	<code>
+		describe Tweet do <br>
+  			&nbsp it 'has stuff' do <br>
+    				&nbsp &nbsp tweet = Tweet.new <br>
+    				&nbsp &nbsp pending("this is pending") <br>
+    				&nbsp &nbsp expect(tweet.stuff).to be true <br>
+  			&nbsp end <br>
+		end
+	</code>
+
+	<p>
+		Be aware that using the pending keyword still runs all the code in this spec, and RSpec assumes it will fail. If it doesn't, this test will be listed in the output as a Failure, not Pending!
+	</p>
+	<p>
+		Perhaps the simplest way is to simply add 'x' to the front of the test:
+	</p>
+	<code>
+		describe Tweet do <br>
+  			&nbsp xit 'truncates the status to 140 characters' do <br>
+    				&nbsp &nbsp tweet = Tweet.new(status: 'Nom nom nom' * 100) <br>
+    				&nbsp &nbsp expect(tweet.status.length).to be <= 140 <br>
+  			&nbsp end <br>
+		end
+	</code>
+
+	<p>
+		No matter the method you choose, you'll be notified that pending tests exist when you run your suite:
+	</p>
+	<p>
+	<img src="../images/spec2.png" style="width:500x;height:300px;">
+	</p>
+
+</div>

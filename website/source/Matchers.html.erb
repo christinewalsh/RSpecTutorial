@@ -1,0 +1,359 @@
+
+<div class="interior">
+
+	<h1>RSpec Matchers Tutorial</h1>
+	<h3>Author: Christine Walsh</h3>
+ 
+	<p><strong>Learning Objectives</strong></p>
+	<p>
+		In previous sections, you have learned what RSpec is, how to install it, and the basic syntax of an RSpec test file. In this section you will learn about the different matchers that can be used in an RSpec test case. A matcher is an object that determines whether the actual output of the test condition matches the expected output. RSpec comes with several built-in matchers. It is also possible to design a custom matcher for RSpec.
+	</p>
+
+	<p>
+		In this tutorial, we will explore the functionality of several different RSpec matchers. As we proceed, we will develop a test file for a sample class which uses all of the matchers that we introduced. Finally, we will develop a custom matcher for our class and implement it in a test case for our sample class.
+	</p>
+
+	<p>
+		<em>Important Note:</em> This tutorial describes how to properly use matchers in RSpec test cases. It is not necessarily designed to follow the principles of Behavior Driven Development. In some cases, the code will be provided before the test cases are written to improve clarity.
+	</p>
+
+	<p><strong>Quick Review</strong></p>
+	<p>
+		In the previous section, you learned the syntax of the expect statement. Recall, when comparing the expected output of a test case to the actual output, an expect statement is used with the following syntax:
+	</p>
+	<code>
+		expect(actual).to MATCHER (expected)
+	</code>
+	<p>
+		In real test cases, MATCHER is replaced with the matcher that you wish to use.
+	</p>
+	<p><strong>The Equality Matchers</strong></p>
+	<p>
+		There are three matchers that are absolutely necessary when using RSpec. Those are the equality matchers. Each equality matcher tests for a slightly different type of equality.
+	</p>
+	<p>
+		The eq matcher tests that two objects have the same value. It does not concern itself with whether the two values are of the same type or are the same object. The basic syntax is:
+	</p>
+	<code>		
+		expect(actual).to eq(expected)
+	</code>
+	<br>
+	<code>
+		expect(actual).not_to eq(expected)
+	</code>
+	<p>
+		The eql matcher tests that two objects have the same type and the same value. The basic syntax is:
+	</p>
+	<code>
+		expect(actual).to eql(expected)
+	<br>
+		expect(actual).not_to eql(expected)
+	</code>
+	<p>
+		And finally, the equal matcher tests that the two objects are the same. It does not worry about the value or type of the object, just that the two items are the same object. The basic syntax is:
+	</p>
+	<code>
+		expect(actual).to equal(expected)
+		<br>
+		expect(actual).not_to equal(expected)
+	</code>
+
+	<p>
+		All three types of equality matchers can be summarized in the following table:
+	</p>
+	<br>
+	<table border="1">
+		<tr>
+			<th>Matcher</th>
+			<th>Function</th>
+		</tr>
+		<tr>
+			<td>eq</td>
+			<td>Matches value</td>
+		</tr>
+		<tr>	
+			<td>eql</td>
+			<td>Matches value and type</td>
+		</tr>
+		<tr>	
+			<td>equal</td>
+			<td>Matches object</td>
+		</tr>
+	</table>
+
+	<p>
+		So now that we have an understanding of the first category of matchers, let's build some test cases. To do this, let's first declare a Class called classroom. For the purposes of this tutorial, it is assumed that you are familiar with the basic declaration of a Ruby class. If you are not, please look at the complete code listed at the end of this page. Classroom will have three characteristics: shape, number of windows, and color. First, we will initialize two instances of the class:
+	</p>
+	<code>
+	Classroom1 = Classroom.new("square", 4, "beige")
+	<br>
+	Classroom2 = Classroom.new("oval", 4, "brown")
+	</code>
+
+	<p>
+		As you can see, Classroom1 is square, has four windows, and is beige. Classroom2 is oval, has 4 windows, and is brown. We can now use the equality matchers to test the two instances of classroom that we have created. First, we will use eq to test that Classroom1 is square. To do this, we will set up the following test case:
+    	</p>
+
+	<code>
+		it 'is a square classroom' do <br>
+    			&nbsp Classroom1 = Classroom.new("square", 4, "beige") <br>
+    			&nbsp expect(Classroom1.shape).to eq("square")<br>
+		end
+	</code>
+
+	<p>
+		We expect that this test case will pass because the value of Classroom1.shape is the same as "square."
+	</p>
+	<p>
+		Next we will show how to use the matcher eql. Eql matchers pass if the expected and actual outputs are of the same type and value. Therefore, in this case we will test that Classroom1 and Classroom2 have the same number of windows. Our test case will look like this:
+	</p>
+	<code>
+		it 'has the same number of windows' do <br>
+			&nbsp Classroom1 = Classroom.new("square", 4, "beige") <br>
+			&nbsp Classroom2 = Classroom.new("oval", 4, "brown") <br>
+			&nbsp expect(Classroom1.windows).to eql(Classroom2.windows) <br>
+		end
+	</code>
+	<p>
+		This test case would also be expected to pass because both values are equal to 4 and both values are of the type integer. If one of the values had been stored as a string, the test case would have failed because the two values would have had different types.
+	</p>
+	<p>
+		Finally, we will test the equal matcher. This matcher returns true if the two objects are the same. It does not check value or type. Therefore, we would expect Classroom1 and Classroom2 to fail a test using the equal matcher. The test case would look like this: 
+	</p>
+	<code>
+		it 'is the same object' do <br>
+			&nbsp Classroom1 = Classroom.new("square", 4, "beige") <br>
+			&nbsp Classroom2 = Classroom.new("oval", 4, "brown") <br>
+			&nbsp expect(Classroom1).to equal(Classroom2) <br>
+		end
+	</code>
+	<p>
+		This test case would obviously fail because Classroom1 and Classroom2 are two different objects. However, if we modified the test case slightly we could demonstrate that they are different objects. The revised test case would look like this:
+	</p>
+	<code>
+		it 'is not the same object' do <br>
+			&nbsp Classroom1 = Classroom.new("square", 4, "beige") <br>
+			&nbsp Classroom2 = Classroom.new("oval", 4, "brown") <br>
+			&nbsp expect(Classroom1).not_to equal(Classroom2) <br>
+		end
+	</code>
+
+	<p>This test case would pass.</p>
+
+	<p>
+		Congratulations! You are now familiar with the equality matchers! Now it's your turn! Take a few minutes and write a test case using each equality matcher for the Classroom Class.
+        </p>    
+
+	<p><strong>Type Matchers</strong></p> 
+
+	<p>
+		Next you will learn about type matchers. A type matcher is as matcher that returns true if the type of the object that you are testing is either in the specified class or in the specified class hierarchy.
+	</p>
+	<p>	
+		There are two type matchers: be_kind_of and be_instance_of. The syntax for each is as follows:
+	</p>
+	<code>
+		expect(obj).to be_a_kind_of(type) <br>
+		expect(obj).to be_an_instance_of(type)
+	</code>
+	<p>
+		Note: There's an interesting piece of optional syntax here. The be_an_instance_of matcher can optionally be written without the "an." It would then look like this: 
+	</p>
+	<code>
+		expect(obj).to be_instance_of(type)
+	</code>
+	<p>
+		Also, the be_a_kind_of matcher can be shortened to be_a or be_an. The results of the test cases will be identical. The syntax looks like this:
+	</p>
+	<code>
+		expect(obj).to be_a (type) <br>
+		expect(obj).to be_an (type)
+	</code>
+	<p>
+		To learn how to use each of these matchers in a test case, we will return to our instance of Classroom.
+	</p>
+	<code>
+		Classroom1 = Classroom.new("square", 4, "beige")
+	</code>
+	<p>
+		Now, let's also assume that Classroom has a superclass called Room. Then, we can write the following test case:
+	</p>
+	<code>
+		it 'is an instance of Classroom and is a kind of Room' do <br>
+    			&nbsp Classroom1 = Classroom.new("square", 4, "beige") <br>
+    			&nbsp expect(Classroom1).to be_an_instance_of (Classroom) <br> 
+    			&nbsp expect(Classroom1).to be_a_kind_of (Room) <br>
+		end
+	</code>
+	<p>
+		This test case would pass. Recall that you can also use not_to if you are expecting the object not to be in a certain class.
+	</p>
+	<p>
+		Good job! You've now learned how to use a second type of matcher. Note that from here, the tutorial will become less verbose because it will assume that you are already familiar with the general principle of matchers.
+        </p>    
+
+	<p><strong>Be Matchers</strong></p>
+
+	<p>
+		The next type of matchers that you will learn to use are the "Be" matchers. Be matchers come in several different forms. They are listed in the table below:
+        </p>
+	<table border="1">
+		<tr>	
+			<th>Matcher</th>
+			<th>Function</th>
+		</tr>
+		<tr>
+			<td>be_truthy</td>
+			<td>Matcher passes if the actual output is not nil or false</td>
+		</tr>
+		<tr>
+			<td>be_falsey</td>
+			<td>Matcher passes if object is nil or false</td>
+		</tr>
+		<tr>
+			<td>be_nil</td>
+			<td>Matcher passes if object is nil</td>
+		</tr>
+		<tr>
+			<td>be</td>
+			<td>Matcher pass if object is truthy (always returns the same result as be_truthy)</td>
+		</tr>
+	</table>
+
+	<p>
+		As you can infer from the table, be matchers determine whether an object is true, false, or nil. Now, we will go through some example tests.
+	</p>
+	<p>
+		Because be_falsey passes if the actual output is nil or false, the test case below will pass. Nil and false are both "falsey" and 25 is not false or nil. 
+	</p>
+	<code>
+		it 'is falsey' do <br>
+    			&nbsp expect(nil).to be_falsey <br>
+    			&nbsp expect(false).to be_falsey <br>
+    			&nbsp expect(25).not_to be_falsey <br>
+		end
+	</code>
+
+	<p>
+		Because be_truthy passes if the actual output is not nil or false, the test case below will pass. True and 25 are both neither nil nor false. This matcher is useful to ensure that you are not getting an unexpected nil value.
+	</p>
+	<code>
+		it 'is truth' do <br>
+    			&nbsp expect(true).to be_truthy <br>
+    			&nbsp expect(25).to be_truthy <br>
+		end
+	</code>
+
+	<p>
+		Finally, be_nil passes if the object being tested is nil. Obviously the below tests will pass because nil is nil and 25 is not nil.
+	</p>
+	<code>
+		it 'is nil' do <br>
+    			&nbsp expect(25).not_to be_nil <br>
+    			&nbsp expect(nil).to be_nil <br>
+		end  
+	</code>      
+
+	<p><strong>Predicate Matchers</strong></p>
+
+	<p>
+		Predicate matchers are similar to be matchers in many ways. However, instead of simply matching true or false, they accept a Ruby predicate method and return the result of that method on the requested object. The syntax for this item is as follows:
+	</p>
+	<code>
+		expect(instance.predicateMethod?).to eq (expected value)
+ 	</code>
+	<p>
+		To demonstrate this matcher, we will return to our Classroom Class example. Let us assume that Classroom has a method called underConstruction. This method returns true if the classroom is underConstruction and false otherwise.
+	</p>
+	<p>
+		The test case for this will look as follows:
+	</p>
+	<code>
+		it 'is under construction' do <br>
+   			&nbsp Classroom1 = Classroom.new <br>
+    			&nbsp Classroom1.underConstruction = true; <br>
+    			&nbsp expect(Classroom1.underConstruction?).to eq true <br>
+		end
+	</code>
+
+	<p>
+		Obviously this test case will pass if we have properly implemented the method underConstruction. Predicate matchers can be used for any Ruby predicate method. An interesting syntax note is that any predicate matcher can be combined with a be matcher in the following way:
+	</p>
+	<code>
+		expect(actual).to be_predicateMethod
+	</code>
+	<p>
+		Congrats! You only have two more matchers to cover. Take a moment and make sure that you are able to write a test case using a predicate method that passes on your machine! If you forget how to run test cases, refer to the previous section.
+        </p>    
+
+	<p><strong>Match Matchers</strong></p>
+
+	<p>
+		RSpec can also test based upon Regular Expressions. The matcher that is used with Regular Expressions is:
+	</p>
+	<code>
+		expect("some string").to match (/regex/)
+	</code>
+	<p>
+		This matcher is fairly self explanatory. Here's a quick example of how it could be used in our toy Classroom class. Imagine that we want to be able to name our classrooms. However, to ensure consistency we want the names to be uppercase and have no special characters or numbers. then, we could write:
+	</p>
+	<code>
+		it 'follows naming conventions' do <br>
+    			&nbsp Classroom1 = Classroom.new <br>
+    			&nbsp Classroom1.name = "HAPPY" <br> 
+    			&nbsp expect(Classroom1.name).to match (/A-Z/) <br>
+		end
+	</code>
+
+	<p>
+		This test case will pass because HAPPY is all uppercase and that falls within the parameters of the regular expression that we permitted. Note that match is capable of accepting very complex regular expressions, in addition to simple ones like the one given in this example.
+    	</p>    
+
+	<p><strong>Custom Matchers</strong></p>
+	<p>
+		Finally, it's important to note that it is possible to design your own custom matcher in RSpec. This is useful to avoid code duplication. If you are planning on conducting the same test on a variety of different objects, you should consider writing a custom matcher. The format for doing so is extremely easy. In general, the format for a custom matcher is as follows:
+	</p>
+	<code>
+		RSpec::Matchers.define :name_of_matcher_here do |expected|  <br>
+  			&nbsp match do |actual| <br>
+  				&nbsp &nbsp #Place code that you want the test to run here <br>
+  			&nbsp end <br>
+  			&nbsp #custom failure statements can be put here, if desired <br>
+		end 
+	</code>
+	<p>
+		As you can see, first the name of the matcher is assigned. Then, the expected value is given to the method directly after the first do. Finally, the expected value is matched to the actual value inside the second block of code. There is also a place to replace the default failure statements with something more descriptive for ease of use.
+	</p>
+	<p>
+		However, it's difficult to fully understand this without an example. So, let's dive back into our Classroom class and look at one. Let's assume that any instance of classroom is on a certain floor of the building and we want to be able to test what floor any given classroom is on. To do this, we could write a custom matcher that would access the value on_floor in Classroom and compare it to the expected value. Take a look at the example below.
+	</p>
+	<code>
+		RSpec::Matchers.define :on_floor do |floor_num| <br>
+  			&nbsp match do |Classroom| <br>
+    				&nbsp &nbsp Classroom.on_floor?(floor_num) <br>
+  			&nbsp end <br>
+
+  			&nbsp # Optional failure messages <br>
+  			&nbsp failure_message_for_should do |actual| <br>
+    				&nbsp &nbsp "expected Classroom to be on floor" <br>
+  			&nbsp end <br>
+
+  			&nbsp failure_message_for_should_not do |actual| <br>
+    				&nbsp &nbsp "expected Classroom not to be on floor" <br>
+  			&nbsp end <br>
+		end
+
+	</code>
+	<p>
+		As you can see, the matcher will output a custom failure statement for when the classroom should have been on the floor but was not and for when the classroom should not have been on the given floor but was.
+	</p>
+	<p>
+		Congratulations! You have completed the Matchers section of this tutorial! You should now have been able to successfully install RSpec, set-up a test directory, create a test file (spec), and use a variety of matchers to successfully test your code.
+	</p>
+	<p>
+		Just one more section to go! Keep in mind that this tutorial did not provide an exhaustive list of the matchers available in RSpec. If you're curious to learn more, please check out the RSpec Official Documentation for more detailed information.
+	</p>
+                                    
+</div>
+
+

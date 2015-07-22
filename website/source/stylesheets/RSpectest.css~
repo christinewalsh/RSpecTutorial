@@ -1,0 +1,30 @@
+.interior{
+	display: block;
+	float: left;
+	position: absolute;
+	left: 240px;
+	width: 900px;
+}
+p, h1, h3, table {
+	font-family: Arial, Helvetica, sans-serif;
+}
+code{	
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
+	width: 500px;
+	border: 2px solid #696969;
+	padding: 8px;
+}
+table{
+	margin-left:auto;
+	margin-right:auto;
+}
+tr:hover{
+	background-color: #696969;
+}
+img{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}

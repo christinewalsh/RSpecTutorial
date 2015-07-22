@@ -1,0 +1,112 @@
+
+<div class="interior">
+	<h1>RSpec Basic Syntax</h1>
+	<h3>Authors: Manlin Song and Christine Walsh</h3>
+
+	<p>
+		Welcome to the second stage of the tutorial! In this portion of the tutorial we will discuss how to properly format RSpec test cases and then we will cover the most commonly used terms in RSpec.
+	</p>
+	<p><strong>
+		Anatomy of a test case
+	</strong></p>
+	<p> 
+		In RSpec, the words "describe", "context", "it" and "expect" are used so we can translate the test into a conversation-like language. These colloquial terms allows us to read a test case much as we would read a paragraph.
+	</p>
+	<p>
+	<img src="../images/spec3.png" style="width:500x;height:300px;">
+	</p>
+	<p>
+		For example, the test case shown above would read as follows:
+	</p>
+	<p>
+		"We are now describing the Student class. The first test case will show that an instance of the Student class can have its' name set.  We will expect the student's name to equal Phil after an instance of student is declared and passed the name Phil."
+	</p>
+	<p>
+		Now that we've translated a basic test case into English, let's break down the terms.
+	</p>
+	<p>
+		The describe method will create a group of test cases. Then, within the describe block, you can declare examples by using the word it or the word specify. Additionally, it is possible to nest describe blocks for additional separation of test cases. In RSpec, we use the word "expect" to check if the output result is the same as our expectation.
+	</p>
+	<p>
+		Here's a quick list of the important terms so far:
+	</p>
+	<table border="1">
+		<tr>
+			<td>Term</td>
+			<td>Definition</td>
+		</tr>
+		<tr>	
+			<td>Describe</td>
+			<td>Defines a test group</td>
+		</tr>
+		<tr>
+			<td>it</td>
+			<td>Defines a test</td>
+		</tr>
+		<tr>
+			<td>expect</td>
+			<td>Defines an expectation of certain behavior</td>
+		</tr>
+	</table>
+
+	<p>
+		Now, let's discuss some basic examples of RSpec. The first example we will cover is a simple test file with only one test case. As you can see below, the first line of the file is a require statement. It functions much like an import statement in Java and allows the test file access to spec_helper.rb. The third line just reminds us that this will be a group of test cases describing "something." And then, on the fourth line, we reach our first test case. Reading it in English, as we did with our earlier example, we see that it says, "If it does something,  we expect 1 to equal 1."
+	</p>
+
+	<p>
+	<img src="../images/spec4.png" style="width:500x;height:300px;">
+	</p>
+	<p>
+		So, that's it! That's the basic format of an RSpec test case. To run this file, type on the command line: 
+	</p>
+	<code>
+		rspec test_spec.rb -fdoc
+	</code>
+	<p>
+		Note that to properly run this file, you must be in the spec directory or specify a file path.
+	</p>
+	<p>
+		After you run the code, you will see an output to your console that looks something like this:
+	</p>
+	<p>
+	<img src="../images/spec5.png" style="width:500x;height:200px;">
+	</p>
+	<p>
+		So, now that we're comfortable with the basic RSpec syntax, let's look at a slightly more complex example. In this example, we introduce context. Context can delineate test cases in the same way that describe can. This will be useful when we introduce before and after in the next example.
+	</p>
+	<p>
+	<img src="../images/spec6.png" style="width:500x;height:300px;">
+	</p>
+	<p>
+	Use the same command as before to run this. Your console output should look something like this:
+	</p>
+	<p>
+	<img src="../images/spec7.png" style="width:500x;height:300px;">
+	</p>
+	<p><strong>Before and After:</strong></p>
+	<p>
+		Sometimes you may have test cases where the same operation is needed to initialize them over and over again. Or you may have a group of test cases where you wish to take a certain action after all for the cases have been run. In this case, before and after are very useful tools provided by RSpec. They allow you to run a predetermined block of code before or after all tests, before or after each test, and before or after specific tests.
+	</p>
+	<p>
+		Here is the syntax of a before block.  The code inside of it can be replaced by any code that the programmer desires.
+	</p>
+	<p>
+	<img src="../images/spec8.png" style="width:500x;height:300px;">
+	</p>
+	<p>
+	Here is an example of how before and after work! Take a look at this code and then look at the console output! See if you understand why things are running in that particular order!
+	</p>
+	<p>
+	<img src="../images/spec9.png" style="width:500x;height:300px;">
+	</p>
+	<p>
+		And here is the console output:
+	</p>
+	<p>
+	<img src="../images/spec10.png" style="width:500x;height:300px;">
+	</p>
+	<p>
+		Congrats! That is the basic structure of and RSpec test file! In the next section you will learn about the different ways that you can test values using matchers.
+	</p>
+	<hr>
+	</div>

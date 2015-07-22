@@ -11,7 +11,7 @@
 }
 
 #cssmenu {
-  position: fixed !important;
+  position: absolute !important;
 }
 
 #cssmenu ul {

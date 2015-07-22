@@ -1,0 +1,47 @@
+
+<div class="interior">
+	<h1>Introduction: Why choose RSpec?</h1>
+	<h3>Author: Kelly Hill</h3>
+	<p>
+		Welcome to this RSpec tutorial! In the next few sections you will learn about a testing suite for Ruby known as RSpec. You'll learn the benefits of RSpec, how to install it, and you'll build a sample test file as you go along. Let's get started! 
+	</p>
+	<p>
+		So, first, why use RSpec? Well, RSpec's flexible organization, descriptive naming conventions, reader-friendly syntax, and improved failure messages all encourage behavior driven development.
+	</p>
+	<p><strong>
+		Why does behavior driven development matter?
+	</p></strong>
+	<p>
+		BDD challenges developers to see software from a user's perspective. Development starts with the features that a user deems most important and tests are written according to what a behaviors a user should expect.  This is a very useful way of designing software when the primary audience will be non-technical users.
+	</p>
+	<p><strong>
+		Installing Rspec:
+	</strong></p>
+	<p>
+		Installing RSpec on Ubuntu is extremely simple! Simply run the following code in the command line:
+	</p>
+	<code>
+		% gem install rspec
+	</code>
+	<p>
+		Then, once you have installed RSpec you are ready to create your first project! To create an RSpec project run:
+	</p>
+	<code>
+		% rspec --init
+	</code>
+	<p>
+		The previous command creates  .rspec and  spec/spec_helper.rb files. After beginning the work on your testing, a simple project directory may look like this:
+	</p>
+	<p>
+	<img src="../images/spec1.png" style="width:500x;height:300px;">
+	</p>
+  	<p>
+		Note that the book.rb and library.rb files are your Ruby code that you wish to test. Inside the spec folder you have your test files as well as a file called spec_helper.rb. The file spec_helper will be included in every individual test file using the code below at the top of each file:
+	</p>
+	<code>
+		require 'spec_helper'
+	</code>
+	<p>
+		Congrats! you now have created your first RSpec project! The next step in the tutorial will show you the basic syntax of RSpec test cases.
+	</p>
+	<hr>
